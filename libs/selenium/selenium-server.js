@@ -11,17 +11,23 @@ var SELENIUM_DRIVER_JAR = '/Users/chen/WebstormProjects/selenium/selenium-server
     assert = require('assert'),
     SeleniumServer = require('selenium-webdriver/remote').SeleniumServer;
 
+/*
 var server = new SeleniumServer(SELENIUM_DRIVER_JAR, {
-    port: 4444
+    port: 4344
 });
 
 server.start();
-
+*/
 var driver = new webdriver.Builder().
-    usingServer(server.address()).
-    withCapabilities(webdriver.Capabilities.firefox()).
+    usingServer('http://192.168.1.104:4444/wd/hub').
+    withCapabilities({
+        browserName: 'safari'//,
+       // version: 27//,
+       // platform: 'xp'
+    }).
     build();
-/*
+
+ /*
 driver.get('http://www.baidu.com');
 driver.findElement(webdriver.By.id('kw')).sendKeys('webdriver');
 driver.findElement(webdriver.By.id('su')).click();
@@ -31,6 +37,7 @@ driver.getTitle().then(function(title) {
     }
 });
 */
+
 driver.get('http://hotel.ctrip.com');
 driver.findElement(webdriver.By.id("txtCity")).clear();
 driver.findElement(webdriver.By.id("txtCity")).sendKeys("beijing").then(function(){
@@ -42,14 +49,14 @@ driver.findElement(webdriver.By.id("txtCity")).sendKeys("beijing").then(function
 /*
 driver.getTitle().then(function(title) {
     if (title !== 'webdriver - Google Search') {
-        throw new Error(
+                                          v      throw new Error(
             'Expected "webdriver - Google Search", but was "' + title + '"');
     }
 });
 */
 //driver.wait(function(){
     driver.findElement(webdriver.By.id("txtCity")).getAttribute("value").then(function(value){
-        if(value=="北京"){
+        if(value=="??"){
             driver.quit();
             //console.log('ok');
         }
@@ -57,6 +64,6 @@ driver.getTitle().then(function(title) {
     })
 //});
 /*
-assert.equal("北京", driver.findElement(webdriver.By.id("txtCity")).getAttribute("value"));
+assert.equal("??", driver.findElement(webdriver.By.id("txtCity")).getAttribute("value"));
 */
 
