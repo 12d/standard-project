@@ -1,29 +1,41 @@
 var webdriver = require('selenium-webdriver'),
     assert = require('assert'),
     driver = new webdriver.Builder().
-    usingServer('http://localhost:4444/wd/hub').
-    withCapabilities({
-        'browserName': 'internet explorer',
-        'version': '',
-        'platform': 'ANY',
-        'javascriptEnabled': true
-    }).
-    build();
+        usingServer('http://localhost:4444/wd/hub').
+        withCapabilities({
+            'browserName': 'chrome',
+            'version': '',
+            'platform': 'ANY',
+            'javascriptEnabled': true
+        }).
+        build();
 
-driver.get('http://www.baidu.com').then(function(){
-    driver.findElement(webdriver.By.id('kw1')).sendKeys('webdriver');
-    driver.findElement(webdriver.By.id('su1')).click();
-   // driver.getTitle().then(function(title) {
-        //console.log(title);
-        //driver.quit();
-        driver.findElement(webdriver.By.id('kw')).getAttribute('value').then(function(value){
-            console.log(assert.equal(value, 'webdriver'));
-            //console.log(value);
-            driver.quit();
-        });
-
-
-   // });
-
-
+jasmine.getEnv().defaultTimeoutInterval = 5000;
+describe('test jasmine', function(){
+    it('1 3case:', function(){
+        expect(true).toBeTruthy();
+    })
 });
+describe('test jasmine', function(){
+    it('22 case:', function(){
+        expect(true).toBeTruthy();
+    })
+});
+describe('test jasmine', function(){
+    it('22 case:', function(){
+        expect(false).toBeTruthy();
+    })
+});
+
+
+describe('basic test', function () {
+    it('should be on correct page', function (done) {
+        driver.get('http://www.baidu.com');
+        driver.getTitle().then(function(title) {
+            expect(title).toBe('百度一下，你就知道');
+            //ck to be called before proceeding to next specification.
+            done();
+        });
+    });
+});
+
